@@ -1,0 +1,53 @@
+{
+  "name": "facegif-api",
+  "version": "1.0.0",
+  "description": "You can create gifs from multiple selfies",
+  "main": "app.js",
+  "dependencies": {
+    "debug": "^2.2.0",
+    "koa": "^1.2.0",
+    "mongoose": "^4.4.20"
+  },
+  "devDependencies": {
+    "chai": "^3.5.0",
+    "chai-subset": "^1.2.2",
+    "chai-things": "^0.2.0",
+    "co-mocha": "^1.1.2",
+    "co-supertest": "0.0.10",
+    "eslint": "^2.12.0",
+    "eslint-plugin-standard": "^1.3.2",
+    "jsdoc-to-markdown": "^1.3.6",
+    "mocha": "^2.5.3",
+    "nock": "^8.0.0",
+    "pre-commit": "^1.1.3",
+    "sinon": "^1.17.4",
+    "sinon-chai": "^2.8.0",
+    "supertest": "^1.2.0"
+  },
+  "scripts": {
+    "clean": "rm -rf node_modules",
+    "postclean": "npm install",
+    "start": "node app.js",
+    "lint": "eslint app.js src",
+    "lint-fix": "eslint app.js src --fix",
+    "test": "SEED=${DEBUG_SEED:-$RANDOM}; echo $SEED; NODE_ENV=test mocha --require co-mocha --timeout 15000 $(find src -name \"*.spec.js\" | awk -v seed=$SEED 'BEGIN{srand(seed);} {printf \"%06d %s\\n\", rand()*1000000, $0;}' | sort -n | cut -c8-)",
+    "docs": "node ./node_modules/.bin/jsdoc2md -t ./api-reference-template.hbs $(find src -name \"*.js\" -not -name \"*.spec.js\") > api-reference.md"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/olahakos/facegif-api.git"
+  },
+  "engines": {
+    "node": "4.2"
+  },
+  "author": "Akos Olah",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/olahakos/facegif-api/issues"
+  },
+  "pre-commit": [
+    "lint",
+    "test"
+  ],
+  "homepage": "https://github.com/olahakos/facegif-api#readme"
+}
