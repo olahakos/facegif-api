@@ -7,7 +7,7 @@ const pkg = require('../../package.json');
 
 /**
  * Display API status
- * @method GET /v1/status
+ * @method GET /status
  * @kind API
  * @return {Object} an object with some basic infos about the API
  */

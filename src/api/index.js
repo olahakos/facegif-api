@@ -2,6 +2,7 @@
 
 const Router = require('koa-router');
 
+const gif = require('./gif');
 const status = require('./status');
 
 const api = {
@@ -9,5 +10,6 @@ const api = {
 };
 
 api.public.get('/', status);
+api.public.post('/gif', gif);
 
 module.exports = api;
