@@ -1,5 +1,7 @@
 'use strict';
 
+const path = require('path');
+
 const debug = require('debug')('config');
 
 const config = {};
@@ -13,6 +15,8 @@ config.port = process.env.PORT || 3000;
 config.db = {
   mongoUri: process.env.MONGO_URI || 'mongodb://localhost/facegif'
 };
+
+config.tmpDir = path.join(__dirname, '../', 'tmp');
 
 debug(config);
 module.exports = config;
