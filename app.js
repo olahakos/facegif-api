@@ -7,13 +7,11 @@ const debug = require('debug')('app');
 const koa = require('koa');
 const mongoose = require('mongoose');
 const mount = require('koa-mount');
-const serve = require('koa-static');
 
 const api = require('./src/api');
 const pkg = require('./package.json');
 
 const app = koa();
-app.use(serve('./public'));
 
 app.use(mount('/', bodyParser()));
 app.use(mount('/', api.public.middleware()));
