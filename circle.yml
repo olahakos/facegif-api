@@ -1,0 +1,35 @@
+machine:
+  pre:
+    - curl -sSL https://s3.amazonaws.com/circle-downloads/install-circleci-docker.sh | bash -s -- 1.10.0
+
+  services:
+    - docker
+
+dependencies:
+  override:
+    - docker info
+    - docker build --build-arg MONGO_URI=$MONGO_URI -t facegif-api .
+
+test:
+  override:
+    - echo "ok"
+
+deployment:
+  master:
+    branch: master
+    commands:
+      - docker login -e . -u $DOCKER_USER -p $DOCKER_PASS quay.io
+      - docker tag facegif-api quay.io/akos/facegif-api:master
+      - docker push quay.io/akos/facegif-api:master
+      - docker tag facegif-api quay.io/akos/facegif-api:${CIRCLE_SHA1:0:7}
+      - docker push quay.io/akos/facegif-api:${CIRCLE_SHA1:0:7}
+      - docker logout
+  dev:
+    branch: dev
+    commands:
+      - docker login -e . -u $DOCKER_USER -p $DOCKER_PASS quay.io
+      - docker tag facegif-api quay.io/akos/facegif-api:latest
+      - docker push quay.io/akos/facegif-api:latest
+      - docker tag facegif-api quay.io/akos/facegif-api:${CIRCLE_SHA1:0:7}
+      - docker push quay.io/akos/facegif-api:${CIRCLE_SHA1:0:7}
+      - docker logout
