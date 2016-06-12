@@ -1,6 +1,6 @@
 {
   "name": "facegif-api",
-  "version": "1.0.0",
+  "version": "1.1.0",
   "description": "You can create gifs from multiple selfies",
   "main": "app.js",
   "dependencies": {
