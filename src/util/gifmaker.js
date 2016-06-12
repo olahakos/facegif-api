@@ -11,9 +11,11 @@ const config = require('../config');
 
 /**
  * Concatenate the given images into a .gif
+ * @access public
  * @param  {Array} imgArr         Array of image urls or paths
  * @param  {string} outputFileName name of the output GIF
- * @return {string}                path of the GIF
+ * @kind util
+ * @return {string}                path to the GIF file
  */
 function *gifMaker(imgArr, outputFileName) {
   debug('input params:', imgArr, outputFileName);
@@ -35,6 +37,7 @@ function *gifMaker(imgArr, outputFileName) {
 
 /**
  * Ensure to Exists the tmp directory
+ * @access private
  * @param  {string} tmpDir path of the tmp directory
  * @return {Promise}
  */
@@ -46,6 +49,7 @@ function ensureExistsTmp(tmpDir) {
 
 /**
  * Concatenate the images with imagemagick
+ * @access private
  * @param  {Array} imgArr         Array of images
  * @param  {string} outputFilePath path of the output GIF
  * @return {Promise}
@@ -62,6 +66,7 @@ function concatenateImages(imgArr, outputFilePath) {
 
 /**
  * Validate the parameters
+ * @access private
  * @param  {Array} imgArr Array of image urls or paths
  * @param  {string} outputFileName name of the output GIF
  * @return {Boolean}  are the params valid?

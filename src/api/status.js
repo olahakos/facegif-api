@@ -10,6 +10,12 @@ const pkg = require('../../package.json');
  * @method GET /status
  * @kind API
  * @return {Object} an object with some basic infos about the API
+ * @example
+ * response: {
+ *   "name": "facegif-api",
+ *   "version": "1.0.0",
+ *   "env": "development"
+ * }
  */
 function *status() {
   const info = {

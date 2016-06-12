@@ -9,9 +9,24 @@ const config = require('../config');
 
 /**
  * Generate a gif sequence from the given images
+ * To increase th testing I used dependency injection here
  * @method POST /gif
+ * @example
+ * request: {
+ *   "images": [
+ *     'http://cdstorage.azureedge.net/clipdis-app-clips/5416cbb4f6ece1d465f53775.jpg',
+ *     'http://cdstorage.azureedge.net/clipdis-app-clips/56fbd92f3b5a2a1200f90535.jpg',
+ *     'http://cdstorage.azureedge.net/clipdis-app-clips/55a61dfafd24702626af5104.jpg'
+ *   ],
+ *   "fileName": "hello.gif"
+ * }
  * @kind API
- * @return {Object} url to the generated gif
+ * @return {Object} fileName, and url to the generated gif
+ * @example
+ * response: {
+ *   fileName: "hello.gif",
+ *   url: "http://facegif.azureedge.net/upload-test/hello.gif"
+ * }
  */
 function init(options) {
   const gifMaker = options.gifMaker;
