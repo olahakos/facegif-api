@@ -16,7 +16,8 @@ config.db = {
   mongoUri: process.env.MONGO_URI || 'mongodb://localhost/facegif'
 };
 
-config.tmpDir = path.join(__dirname, '../', 'tmp');
+config.tmpDir = path.join(__dirname, '../public');
+config.url = process.env.URL || `http://localhost:${config.port}`;
 
 debug(config);
 module.exports = config;
