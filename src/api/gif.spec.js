@@ -1,6 +1,5 @@
 'use strict';
 
-const fs = require('fs');
 const path = require('path');
 
 const _ = require('lodash');
@@ -10,13 +9,17 @@ const koa = require('koa');
 const request = require('co-supertest');
 
 const config = require('../config');
-const gifMiddleware = require('./gif');
+const gifInitMiddleware = require('./gif');
 
 describe('The gif creator endpoint', () => {
   let app;
   before(function *() {
     app = koa();
     app.use(bodyParser());
+    const gifMiddleware = gifInitMiddleware({
+      azure: null,
+      gifMaker: (imgArr, fileName) => (Promise.resolve(path.join(config.tmpDir, fileName)))
+    });
     app.use(gifMiddleware);
   });
 
@@ -38,9 +41,6 @@ describe('The gif creator endpoint', () => {
       .to.be.ok
       .to.have.any.keys('url')
       .to.have.any.keys('fileName');
-    try {
-      fs.unlink(path.join(config.tmpDir, gifUrl.body.fileName));
-    } catch (e) {}
   });
 
   it('should return the generated gif if we call it with the fileName parameter.', function *() {
@@ -53,7 +53,5 @@ describe('The gif creator endpoint', () => {
       .to.be.ok
       .to.have.any.keys('url')
       .to.containSubset(fileNameObj);
-
-    fs.unlink(path.join(config.tmpDir, gifUrl.body.fileName));
   });
 });
