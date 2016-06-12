@@ -36,7 +36,7 @@ function init(options) {
       const fileName = this.request.body.fileName || `${randomstring.generate(4)}.gif`;
 
       let filePath = yield gifMaker(images, fileName);
-      if (config.azure.inUse) {
+      if (config.azure.inUse === true || config.azure.inUse === 'true') {
         var fileUrl = yield uploadToAzure(fileName, filePath);
         try {
           fs.unlink(filePath);
